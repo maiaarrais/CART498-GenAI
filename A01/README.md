@@ -1,4 +1,4 @@
-#Assignment 1
+# Assignment 1
 
 ![alt text](collage_1.png)
 
