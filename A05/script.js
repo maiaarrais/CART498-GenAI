@@ -1,5 +1,4 @@
-// Each creature links to one transparent PNG in assets/animals/.
-// To add generated sound later, add sound: 'assets/audio/filename.wav' to its entry.
+
 const animals = [
   {
     "id": "mossling",
@@ -11,7 +10,7 @@ const animals = [
     "y": 26,
     "description": "A curious branch-dweller whose feet cling to the underside of leaves.",
     "phrase": "Sha-lu, vemi na.",
-    "tone": 440
+    "sound": "assets/sounds/16_lizard.wav"
   },
   {
     "id": "fernwhisper",
@@ -23,7 +22,7 @@ const animals = [
     "y": 34,
     "description": "Its shifting wings carry messages between the treetops.",
     "phrase": "Vira, vira, sho.",
-    "tone": 620
+    "sound": "assets/sounds/02_butterfly.wav"
   },
   {
     "id": "velvettrunk",
@@ -35,7 +34,7 @@ const animals = [
     "y": 45,
     "description": "A gentle giant that remembers the rhythm of every rainfall.",
     "phrase": "Duum alara.",
-    "tone": 300
+    "sound": "assets/sounds/06_elephant.wav"
   },
   {
     "id": "glimmerwing",
@@ -47,7 +46,7 @@ const animals = [
     "y": 53,
     "description": "It nests in the mist and leaves traces of color behind.",
     "phrase": "Kiri ne, kiru.",
-    "tone": 540
+    "sound": "assets/sounds/04_bird.wav"
   },
   {
     "id": "mossrabbit",
@@ -59,7 +58,7 @@ const animals = [
     "y": 63,
     "description": "Its long ears catch the quietest signals from the forest floor.",
     "phrase": "Mimi shara.",
-    "tone": 410
+    "sound": "assets/sounds/14_rabbit.wav"
   },
   {
     "id": "dewcaller",
@@ -71,7 +70,7 @@ const animals = [
     "y": 72,
     "description": "It sings just before the first drop of rain.",
     "phrase": "Buro, buro, li.",
-    "tone": 360
+    "sound": "assets/sounds/10_frog.wav"
   },
   {
     "id": "twilightdeer",
@@ -83,7 +82,7 @@ const animals = [
     "y": 74,
     "description": "Its antlers branch into shapes no botanist can name.",
     "phrase": "Ola mi vena.",
-    "tone": 480
+    "sound": "assets/sounds/08_fox.wav"
   },
   {
     "id": "seedkeeper",
@@ -95,7 +94,7 @@ const animals = [
     "y": 22,
     "description": "It buries luminous seeds that grow only in moonlight.",
     "phrase": "Chika tolu.",
-    "tone": 570
+    "sound": "assets/sounds/12_cat.wav"
   },
   {
     "id": "glimmerfin",
@@ -107,7 +106,7 @@ const animals = [
     "y": 26,
     "description": "A curious swimmer that follows dancing beams of light.",
     "phrase": "Oru-mi, tela.",
-    "tone": 520
+    "sound": "assets/sounds/01_fish.wav"
   },
   {
     "id": "pearlback",
@@ -119,7 +118,7 @@ const animals = [
     "y": 34,
     "description": "A gentle creature that collects forgotten sounds in its shell.",
     "phrase": "Muu-ra, omi-ru.",
-    "tone": 330
+    "sound": "assets/sounds/03_turtle.wav"
   },
   {
     "id": "driftwhale",
@@ -131,7 +130,7 @@ const animals = [
     "y": 45,
     "description": "Its slow movements stir the currents into soft spirals.",
     "phrase": "Vooma re.",
-    "tone": 260
+    "sound": "assets/sounds/05_whale.wav"
   },
   {
     "id": "inkdancer",
@@ -143,7 +142,7 @@ const animals = [
     "y": 53,
     "description": "Its arms trace stories that vanish into the current.",
     "phrase": "Suli, naka, su.",
-    "tone": 590
+    "sound": "assets/sounds/07_octopus.wav"
   },
   {
     "id": "coilcrest",
@@ -155,7 +154,7 @@ const animals = [
     "y": 63,
     "description": "It drifts upright among the coral and sleeps in circles.",
     "phrase": "Te-ru, te-ru.",
-    "tone": 440
+    "sound": "assets/sounds/09_seahorse.wav"
   },
   {
     "id": "moonray",
@@ -167,7 +166,7 @@ const animals = [
     "y": 72,
     "description": "Its wide fins resemble a moving shadow beneath the moon.",
     "phrase": "Mora na vi.",
-    "tone": 390
+    "sound": "assets/sounds/11_ray.wav"
   },
   {
     "id": "shellclick",
@@ -179,7 +178,7 @@ const animals = [
     "y": 74,
     "description": "It taps patterns on smooth stones to greet its neighbors.",
     "phrase": "Tak tik, nora.",
-    "tone": 650
+    "sound": "assets/sounds/13_crab.wav"
   },
   {
     "id": "rippledart",
@@ -191,7 +190,7 @@ const animals = [
     "y": 22,
     "description": "A playful diver that chases echoes through deep water.",
     "phrase": "Rii-vo, soma.",
-    "tone": 560
+    "sound": "assets/sounds/15_dolphin.wav"
   }
 ];
 
@@ -292,7 +291,8 @@ function openAnimal(animal) {
   document.getElementById('datasetArt').src = animal.dataset;
   document.getElementById('audioNote').textContent = animal.sound
     ? 'Generated animal audio'
-    : 'Sample tone — replace with generated audio';
+    : 'No sound added yet';
+  document.getElementById('play').disabled = !animal.sound;
   document.querySelector('.modal').classList.toggle('underwater-card', animal.world === 'underwater');
   overlay.classList.remove('hidden');
   document.getElementById('close').focus();
@@ -303,24 +303,7 @@ let audioContext;
 function playSound(animal) {
   if (animal.sound) {
     new Audio(animal.sound).play().catch(console.error);
-    return;
   }
-
-  audioContext ??= new (window.AudioContext || window.webkitAudioContext)();
-
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-  const time = audioContext.currentTime;
-
-  oscillator.type = 'sine';
-  oscillator.frequency.setValueAtTime(animal.tone, time);
-  oscillator.frequency.exponentialRampToValueAtTime(animal.tone * 1.35, time + 0.28);
-  gain.gain.setValueAtTime(0.0001, time);
-  gain.gain.exponentialRampToValueAtTime(0.095, time + 0.04);
-  gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.7);
-  oscillator.connect(gain).connect(audioContext.destination);
-  oscillator.start(time);
-  oscillator.stop(time + 0.72);
 }
 
 document.getElementById('play').onclick = () => {
