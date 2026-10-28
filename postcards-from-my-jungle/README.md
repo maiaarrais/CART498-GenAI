@@ -1,5 +1,6 @@
 # FIELD NOTES FROM ELSEWHERE — IMMERSIVE 
 
+## Hosted Site: https://maiaarrais.github.io/CART498-GenAI/postcards-from-my-jungle/
 
 This project didn't really go the way I originally planned, but I think that made it more interesting.
 
