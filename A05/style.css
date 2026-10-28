@@ -1,0 +1,824 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: #081c17;
+  color: #f2f4de;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid #d3e9a0;
+  outline-offset: 5px;
+}
+
+.experience {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #112b22;
+}
+
+.environment {
+  position: absolute;
+  inset: -2%;
+  background-position: center;
+  background-size: cover;
+  transition: opacity 1.35s ease, transform 12s ease;
+  will-change: opacity;
+  z-index: -5;
+}
+
+.jungle-env {
+  background-image: url('assets/jungle-immersive.jpg');
+  background-position: center 48%;
+  opacity: 1;
+}
+
+.water-env {
+  background-image: url('assets/underwater.jpg');
+  background-position: center;
+  opacity: 0;
+  filter: saturate(1.25);
+}
+
+.underwater .jungle-env {
+  opacity: 0;
+}
+
+.underwater .water-env {
+  opacity: 1;
+}
+
+.haze {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+  pointer-events: none;
+  background: linear-gradient(90deg,rgba(4,22,18,.84) 0%,rgba(5,33,27,.48) 38%,rgba(7,31,26,.10) 74%),
+    linear-gradient(0deg,rgba(4,20,18,.78),transparent 37%,rgba(4,22,18,.28));
+  transition: background 1s;
+}
+
+.underwater .haze {
+  background: linear-gradient(90deg,rgba(2,26,34,.8),rgba(4,59,70,.28) 60%,rgba(2,31,47,.18)),
+    linear-gradient(0deg,rgba(0,22,37,.88),transparent 48%,rgba(7,42,61,.12));
+}
+
+.rays {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  opacity: .6;
+  background: radial-gradient(ellipse 31% 60% at 80% -2%,rgba(234,250,151,.24),transparent 90%),
+    linear-gradient(110deg,transparent 56%,rgba(233,255,184,.07) 62%,transparent 70%);
+  animation: ray-shift 12s ease-in-out infinite alternate;
+}
+
+.underwater .rays {
+  background: repeating-conic-gradient(from 180deg at 61% -15%,transparent 0deg 8deg,rgba(155,241,236,.09) 9deg 11deg,transparent 12deg 22deg);
+  opacity: .75;
+  mix-blend-mode: screen;
+}
+
+@keyframes ray-shift {
+  to {
+    transform: translateX(-3%);
+  }
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: inset 0 0 18vw 4vw rgba(0,12,15,.36);
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #e4f8bd;
+  opacity: .42;
+  box-shadow: 0 0 11px 3px #dbff8a55;
+  animation: drift var(--dur) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.underwater .particle {
+  background: #b9fbff;
+  box-shadow: 0 0 8px #b9fbffaa;
+  width: 4px;
+  height: 4px;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0,13px);
+    opacity: 0;
+  }
+  30% {
+    opacity: .52;
+  }
+  80% {
+    opacity: .35;
+  }
+  100% {
+    transform: translate(14px,-64px);
+    opacity: 0;
+  }
+}
+
+.topbar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 5.6%;
+  gap: 20px;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #f8f7dd;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: .18em;
+  line-height: 1.2;
+}
+
+.wordmark:first-letter {
+  font-size: 24px;
+}
+
+.wordmark small {
+  display: block;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  margin-top: 7px;
+  opacity: .75;
+}
+
+.toplinks {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font-size: 10px;
+  letter-spacing: .15em;
+}
+
+.live {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.live i {
+  display: block;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: #bcf0ad;
+  box-shadow: 0 0 12px #bff8a6;
+}
+
+.sound-toggle {
+  border: 1px solid #f4ffe760;
+  background: #102a2640;
+  color: #fff;
+  padding: 11px 16px;
+  border-radius: 100px;
+  font-size: 10px;
+  letter-spacing: .14em;
+  backdrop-filter: blur(8px);
+}
+
+.intro {
+  position: relative;
+  z-index: 2;
+  margin: clamp(35px,8vh,95px) 0 0 9.5%;
+  width: min(550px,58vw);
+  pointer-events: none;
+}
+
+.kicker {
+  font-size: 11px;
+  letter-spacing: .29em;
+  font-weight: 700;
+  color: #d8ebb1;
+}
+
+.intro h1 {
+  font: normal clamp(55px,7vw,116px)/.95 'DM Serif Display', Georgia, serif;
+  letter-spacing: -.04em;
+  margin: 25px 0 25px;
+  text-wrap: balance;
+  text-shadow: 0 3px 25px #071e1970;
+}
+
+.intro h1 em {
+  display: block;
+  font-weight: normal;
+  color: #d6e7b9;
+}
+
+.subtitle {
+  font-size: clamp(13px,1.3vw,16px);
+  line-height: 1.85;
+  max-width: 380px;
+  color: #ebf1dbd9;
+}
+
+.intro-rule {
+  width: 55px;
+  height: 1px;
+  background: #e5f4ca;
+  margin: 27px 0;
+}
+
+.instruction {
+  font-size: 10px;
+  letter-spacing: .19em;
+  color: #e9f7cb;
+}
+
+.creatures {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.creature {
+  --delay: 0s;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  height: clamp(76px,9.5vw,155px);
+  width: clamp(76px,9.5vw,155px);
+  transform: translate(-50%,-50%);
+  background: none;
+  border: 0;
+  padding: 0;
+  pointer-events: auto;
+  filter: drop-shadow(0 0 17px rgba(213,251,183,.28));
+  animation: creature-float 6s ease-in-out infinite;
+  animation-delay: var(--delay);
+  transition: filter .3s;
+}
+
+.creature:before {
+  content: '';
+  position: absolute;
+  inset: 24%;
+  border-radius: 50%;
+  background: #d9ffc744;
+  filter: blur(27px);
+  opacity: .6;
+  transition: opacity .3s;
+}
+
+.creature img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform .4s;
+  filter: drop-shadow(0 7px 8px #071a1a88);
+}
+
+.creature:hover img, .creature:focus-visible img {
+  transform: scale(1.25) rotate(-3deg);
+}
+
+.creature:hover:before {
+  opacity: 1;
+}
+
+.creature.found:after {
+  content: '✧';
+  position: absolute;
+  right: 12%;
+  top: 13%;
+  color: #f4ffda;
+  font-size: 18px;
+  text-shadow: 0 0 6px #ebffca;
+}
+
+@keyframes creature-float {
+  50% {
+    translate: 0 -14px;
+    rotate: 2deg;
+  }
+}
+
+.discovery {
+  position: absolute;
+  z-index: 4;
+  bottom: 105px;
+  left: 5.6%;
+  width: 210px;
+}
+
+.discover-heading {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  letter-spacing: .14em;
+  gap: 9px;
+}
+
+.discover-heading strong {
+  font-size: 11px;
+}
+
+.progress {
+  height: 2px;
+  background: #f5ffe451;
+  margin: 15px 0 8px;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #e9f2c0;
+  transition: width .4s;
+}
+
+.discovery small {
+  font-size: 10px;
+  opacity: .74;
+}
+
+.scene-label {
+  position: absolute;
+  right: 5.6%;
+  bottom: 42px;
+  font-size: 10px;
+  letter-spacing: .18em;
+  opacity: .85;
+}
+
+.scene-label span {
+  margin: 0 12px;
+}
+
+.switch {
+  position: absolute;
+  bottom: 96px;
+  right: 5.6%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #1e3a31;
+  background: #e5efd0;
+  border: 0;
+  border-radius: 80px;
+  padding: 17px 23px;
+  box-shadow: 0 10px 40px #06191688;
+  text-align: left;
+  transition: transform .25s, background .25s;
+}
+
+.switch:hover {
+  transform: translateY(-5px);
+  background: #fffbe4;
+}
+
+.switch-icon {
+  border: 1px solid #27473577;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  font-size: 19px;
+}
+
+.switch small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .13em;
+  margin-bottom: 6px;
+}
+
+.switch strong {
+  font: normal 17px 'DM Serif Display', serif;
+}
+
+.switch-arrow {
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+.bottom-credit {
+  position: absolute;
+  bottom: 42px;
+  left: 5.6%;
+  font-size: 9px;
+  letter-spacing: .14em;
+  opacity: .66;
+}
+
+.bottom-credit span {
+  margin: 0 6px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background: #031716bb;
+  backdrop-filter: blur(16px);
+}
+
+.hidden {
+  display: none;
+}
+
+.modal {
+  position: relative;
+  width: min(900px,100%);
+  min-height: 480px;
+  background: #f1eddd;
+  color: #283d32;
+  display: grid;
+  grid-template-columns: 1.08fr 1fr;
+  box-shadow: 0 40px 120px #0009;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 13px;
+  z-index: 4;
+  border: none;
+  background: none;
+  color: #274332;
+  font-size: 34px;
+}
+
+.specimen {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 420px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 50%,#d6e5c8,#9cbc9e);
+}
+
+.underwater-card .specimen {
+  background: radial-gradient(ellipse,#b5dcd8,#679d9c);
+}
+
+.specimen-glow {
+  position: absolute;
+  inset: 15%;
+  background: radial-gradient(circle,#e4f9d7bb,transparent 68%);
+  filter: blur(23px);
+}
+
+.specimen img {
+  position: relative;
+  width: 85%;
+  height: 85%;
+  max-height: 350px;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 19px #1b3e3e36);
+  animation: creature-float 6s ease-in-out infinite;
+}
+
+.specimen-caption {
+  position: absolute;
+  left: 24px;
+  bottom: 23px;
+  font-size: 9px;
+  letter-spacing: .17em;
+}
+
+.specimen-info {
+  padding: 75px 50px 40px;
+}
+
+.specimen-info .kicker {
+  color: #58755b;
+}
+
+.specimen-info h2 {
+  font: normal clamp(36px,4vw,60px)/1 'DM Serif Display', Georgia, serif;
+  margin: 22px 0;
+}
+
+.thin-line {
+  height: 1px;
+  background: #bdc5b4;
+  margin: 25px 0;
+}
+
+.specimen-info p:not(.kicker) {
+  line-height: 1.8;
+  color: #526257;
+  font-size: 14px;
+}
+
+.specimen-info .phrase-title {
+  margin-top: 32px;
+  font-size: 10px!important;
+  letter-spacing: .15em;
+  font-weight: 700;
+}
+
+.specimen-info blockquote {
+  font: italic 25px 'DM Serif Display', serif;
+  margin: 10px 0 30px;
+}
+
+.play {
+  border: 0;
+  background: #2e5947;
+  color: #fff;
+  border-radius: 30px;
+  padding: 14px 22px;
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+
+.play span {
+  margin-left: 8px;
+}
+
+#audioNote {
+  display: block;
+  font-size: 10px;
+  margin-top: 14px;
+  color: #819085;
+}
+
+@media (min-width:1300px) {
+  .jungle-env {
+    background-position: center 37%;
+  }
+  .creature {
+    height: clamp(90px,9vw,150px);
+    width: clamp(90px,9vw,150px);
+  }
+}
+
+@media (max-width:800px) {
+  .intro {
+    width: 80vw;
+    margin: 7vh 0 0 7%;
+  }
+  .intro h1 {
+    font-size: clamp(53px,10vw,83px);
+  }
+  .topbar {
+    padding: 22px 6%;
+  }
+  .live {
+    display: none;
+  }
+  .creature {
+    width: clamp(74px,14vw,112px);
+    height: clamp(74px,14vw,112px);
+  }
+  .discovery {
+    left: 6%;
+    bottom: 126px;
+  }
+  .switch {
+    right: 6%;
+    bottom: 94px;
+    padding: 13px;
+  }
+  .bottom-credit {
+    left: 6%;
+  }
+  .scene-label {
+    right: 6%;
+  }
+  .modal {
+    grid-template-columns: 1fr;
+    max-width: 470px;
+    max-height: 90svh;
+    overflow: auto;
+  }
+  .specimen {
+    min-height: 250px;
+  }
+  .specimen img {
+    max-height: 235px;
+  }
+  .specimen-info {
+    padding: 28px 36px 36px;
+  }
+  .specimen-info h2 {
+    margin: 12px 0;
+  }
+  .thin-line {
+    margin: 13px 0;
+  }
+}
+
+@media (max-width:520px) {
+  .intro {
+    margin-top: 9vh;
+    width: 90vw;
+  }
+  .intro h1 {
+    font-size: 52px;
+  }
+  .subtitle {
+    font-size: 13px;
+    max-width: 290px;
+  }
+  .instruction {
+    font-size: 9px;
+  }
+  .creature {
+    height: 83px;
+    width: 83px;
+  }
+  .discovery {
+    bottom: 150px;
+  }
+  .switch {
+    bottom: 71px;
+    left: 6%;
+    right: auto;
+  }
+  .scene-label {
+    right: 6%;
+    bottom: 33px;
+    font-size: 8px;
+  }
+  .bottom-credit {
+    display: none;
+  }
+  .toplinks {
+    gap: 0;
+  }
+  .wordmark {
+    font-size: 11px;
+  }
+  .wordmark small {
+    font-size: 7px;
+  }
+  .switch strong {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  *, *:before, *:after {
+    animation: none!important;
+    transition: none!important;
+  }
+}
+
+/* Creature placement: clear of intro and persistent interface. */
+
+.creature {
+  width: clamp(72px,7.5vw,122px);
+  height: clamp(72px,7.5vw,122px);
+}
+
+.creature:hover {
+  z-index: 7;
+}
+
+/* Each field note has the WHOLE unmodified generated square behind its cutout. */
+
+.specimen {
+  isolation: isolate;
+  background: #314d44;
+}
+
+.dataset-art {
+  position: absolute!important;
+  inset: 0;
+  width: 100%!important;
+  height: 100%!important;
+  max-height: none!important;
+  object-fit: cover!important;
+  filter: blur(3px) saturate(1.15) brightness(.77)!important;
+  transform: scale(1.04);
+  animation: none!important;
+  z-index: 0;
+}
+
+.specimen:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg,#09282120,#09282155);
+  pointer-events: none;
+}
+
+.specimen-glow {
+  z-index: 2;
+  opacity: .4;
+}
+
+.specimen .cutout-art {
+  position: relative;
+  z-index: 3;
+  width: 86%;
+  height: 82%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 13px #09241acc) drop-shadow(0 0 10px #efffe06e);
+}
+
+.specimen-caption {
+  z-index: 4;
+  color: #fff;
+  text-shadow: 0 1px 7px #000;
+}
+
+@media (max-width:800px) {
+  .experience {
+    min-height: 100svh;
+  }
+  .intro {
+    width: 85vw;
+    max-width: 600px;
+  }
+  .creature {
+    left: var(--mx);
+    top: var(--my);
+    width: clamp(62px,12vw,94px);
+    height: clamp(62px,12vw,94px);
+  }
+}
+
+@media (max-width:520px) {
+  .experience {
+    min-height: 1120px;
+  }
+  .intro {
+    margin-top: 5vh;
+  }
+  .creature {
+    width: 82px;
+    height: 82px;
+  }
+  .discovery {
+    bottom: 130px;
+  }
+  .switch {
+    bottom: 45px;
+  }
+}
+
+/* Entire animals, including fins and appendages, remain visible. */
+
+.creature, .creature img {
+  overflow: visible!important;
+}
+
+.creature img {
+  object-fit: contain!important;
+  object-position: center!important;
+}
+
+.specimen .cutout-art {
+  object-fit: contain!important;
+  object-position: center!important;
+  max-width: 85%;
+  max-height: 82%;
+}

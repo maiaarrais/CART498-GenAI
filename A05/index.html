@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#081b17">
+    <title>Field Notes from Elsewhere</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="experience jungle" id="world">
+      <div class="environment jungle-env" aria-hidden="true"></div>
+      <div class="environment water-env" aria-hidden="true"></div>
+      <div class="haze" aria-hidden="true"></div>
+      <div class="rays" aria-hidden="true"></div>
+      <div class="particles" id="particles" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <nav class="topbar">
+        <a href="#" class="wordmark" aria-label="Field Notes home">✳ <span>ELSEWHERE <small>FIELD STUDIES / VOL. 01</small></span></a>
+        <div class="toplinks">
+          <span class="live"><i></i> LIVE ECOSYSTEM</span>
+          <button class="sound-toggle" id="soundToggle" type="button" aria-label="Toggle ambient audio">♪ SOUND OFF</button>
+        </div>
+      </nav>
+      <section class="intro" aria-label="Introduction">
+        <p class="kicker" id="chapter">01 / THE CANOPY</p>
+        <h1>Field Notes <em>from Elsewhere.</em></h1>
+        <p class="subtitle" id="subtitle">Somewhere beyond the known world, life takes unfamiliar shapes. Follow the movement. Meet its inhabitants.</p>
+        <div class="intro-rule"></div>
+        <p class="instruction">✦ MOVE CLOSER &amp; DISCOVER THE CREATURES</p>
+      </section>
+      <div id="creatures" class="creatures" aria-label="Discover imagined animals"></div>
+      <div class="discovery" id="discovery">
+        <div class="discover-heading"><span>YOUR FIELD JOURNAL</span><strong id="count">00 / 16</strong></div>
+        <div class="progress"><span id="progressFill"></span></div>
+        <small>Creatures encountered</small>
+      </div>
+      <div class="scene-label" id="sceneLabel">THE LIVING CANOPY <span>•</span> 8 SPECIES</div>
+      <button id="switch" class="switch" type="button">
+        <span class="switch-icon">↓</span>
+        <span>
+          <small>CONTINUE EXPLORING</small>
+          <strong id="switchLabel">Descend into the deep</strong>
+        </span>
+        <span class="switch-arrow">↗</span>
+      </button>
+      <div class="bottom-credit">AN EXPERIMENT IN IMAGINED LIFE <span>·</span> CART 498</div>
+    </main>
+    <div class="overlay hidden" id="overlay" role="dialog" aria-modal="true" aria-labelledby="animalName">
+      <div class="modal">
+        <button class="close" id="close" aria-label="Close field note">×</button>
+        <div class="specimen">
+          <img id="datasetArt" class="dataset-art" alt="Original generated animal image"/>
+          <div class="specimen-glow"></div>
+          <img id="animalArt" class="cutout-art" alt=""/>
+          <div class="specimen-caption">SPECIMEN <span id="number"></span> / IMAGINED LIFE ARCHIVE</div>
+        </div>
+        <div class="specimen-info">
+          <p class="kicker" id="habitat"></p>
+          <h2 id="animalName"></h2>
+          <div class="thin-line"></div>
+          <p id="description"></p>
+          <p class="phrase-title">OBSERVED VOCALIZATION</p>
+          <blockquote id="language"></blockquote>
+          <button id="play" class="play" type="button">♫ <span>LISTEN TO ITS CALL</span></button>
+          <small id="audioNote">Sample tone — replace with generated audio</small>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
