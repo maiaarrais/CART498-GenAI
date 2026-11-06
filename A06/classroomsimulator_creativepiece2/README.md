@@ -5,7 +5,7 @@ A small first-person classroom simulation built in Unity, where the player can w
 ## Demo video
 
 <video controls width="800">
-  <source src="./classroomsimulator_creativepiece2.mov" type="video/mp4">
+  <source src="/classroomsimulator_creativepiece2/OllamaDemo.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
