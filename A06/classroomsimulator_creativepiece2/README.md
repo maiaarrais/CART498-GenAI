@@ -4,10 +4,7 @@ A small first-person classroom simulation built in Unity, where the player can w
 
 ## Demo video
 
-<video controls width="800">
-  <source src="/classroomsimulator_creativepiece2/OllamaDemo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Watch or download the demo video](./OllamaDemo.mp4)
 
 ## Program Download 
 https://github.com/maiaarrais/OllamaPresentation
@@ -64,4 +61,3 @@ Once the model is downloaded, local dialogue can run without an internet connect
 Answers can be inaccurate; the teacher is an experimental game character, not a verified educational resource.
 
 The Unity scripts and scene setup were developed with ChatGPT assistance.
-
